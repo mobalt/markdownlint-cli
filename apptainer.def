@@ -1,0 +1,19 @@
+Bootstrap: docker
+From: node:lts-alpine
+
+%files
+    . /app
+
+%post
+    # Move to the app directory
+    cd /app
+
+    # Install the necessary packages
+    npm install --production
+    npm install --global
+
+    # Change to a different working directory
+    cd /workdir
+
+%runscript
+    exec /usr/local/bin/markdownlint "$@"
